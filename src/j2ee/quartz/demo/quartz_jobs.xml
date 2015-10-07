@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quartz>
+	<!--  
+	  <job>
+	  	...
+	  	...
+	  </job>
+	-->
+	
+	<job>
+		<job-detail>
+			<name>ScanDirectory</name>
+			<group>DEFAULT</group>
+			<description>A job that scans a directory for files</description>
+			<job-class>j2ee.quartz.demo.DemoJob</job-class>
+			<volatility>false</volatility>
+			<durability>false</durability>
+			<recover>false</recover>
+			<job-data-map allows-transient-data="true">
+				<entry>
+					<key>SCAN_DIR</key>
+					<value>E:\JAVAEE\ajax\ajax\xml</value>
+				</entry>
+			</job-data-map>
+		</job-detail>
+		
+		<!-- SimpleTrigger -->
+		<trigger>
+			<simple>
+				<name>scanTrigger</name>
+				<group>DEFAULT</group>
+				<job-name>ScanDirectory</job-name>
+				<job-group>DEFAULT</job-group>
+				
+				<!-- 开始时间：2005-07-30 02:10:00，中间一定要多写T, 这是quartz的bug -->
+				<start-time>2005-07-30T02:10:00</start-time>
+				<!-- repeat indefinitely every 10 seconds -->
+				<repeat-count>-1</repeat-count>
+				<repeat-interval>10000</repeat-interval>
+			</simple>
+		</trigger>
+		
+		<!-- CronTrigger -->
+		<trigger>
+			<cron>
+				<name>printJobInfoTrigger</name>
+				<group>DEFAULT</group>
+				<job-name>ScanDirectory</job-name>
+				<job-group>DEFAULT</job-group>
+
+				<!-- Fire 7:30am Monday through Friday -->
+				<cron-expression>0 30 7 ? * MON-FRI</cron-expression>
+			</cron>
+		</trigger>
+	</job>
+	
+</quartz>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!--  Spring与quartz集成，只需写个普通的pojo，然后beans.xml配置即可. -->
+	<bean id="testJob" class="spring.quartz.demo1.TestJob" />
+		
+	<!-- 调度业务 : 若自己实现Job接口，也是写一个类去调用真正业务方法，
+	              而该类就一行调用代码，所以 MethodInvokingJobDetailFactoryBean帮忙减少类，框架实现了该类-->
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="testJob" />
+		<property name="targetMethod" value="doBiz" />
+	</bean>
+	
+	
+	
+	<!-- cron触发器 -->
+	<!-- CronTriggerBean是对CronTrigger的简单包装， 把一些字段：通过构造函数 注入 变成通过属性注入  -->
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="cronExpression" value="10 0/1 * * * ?" />
+	</bean>
+	<!-- Simple触发器-->
+	<!-- SimpleTriggerBean是对SimpleTrigger的简单包装， 把一些字段：通过构造函数 注入 变成通过属性注入  -->
+	<bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="startDelay" value="10000" />
+		<property name="repeatInterval" value="60000" />
+		<property name="repeatCount" value="100" />
+	</bean>
+		
+	
+	<!-- Scheduler调度 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+				<ref bean="simpleTrigger" />
+			</list>
+		</property>
+		<property name="jobDetails">
+			<list>
+				<ref bean="jobDetail" />
+			</list>
+		</property>
+		<property name="startupDelay" value="30"/><!-- bean实例化好后，等待30s才启动start()-->
+		<!--  
+		<property name="configLocation" value="classpath:xx/quartz.properties" /> 
+		-->
+    </bean> 
+	
+	
+</beans>

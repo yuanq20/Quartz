@@ -1,0 +1,5 @@
+spring继承quartz，两种思路：
+1.作业类不继承org.springframework.scheduling.quartz.QuartzJobBean类的方式
+2.作业类继承 org.springframework.scheduling.quartz.QuartzJobBean类的方式
+
+注：个人比较推崇第一种，因为这种方式下的作业类仍然是POJO。

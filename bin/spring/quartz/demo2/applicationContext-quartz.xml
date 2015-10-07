@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	
+	<!-- JobDetailBean是对JobDetail的简单包装， 把一些字段：通过构造函数 注入 变成通过属性注入  -->
+	<bean id="jobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="jobClass" value="spring.quartz.demo2.MyJob" />
+		<property name="applicationContextJobDataKey" value="appKey" />
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="size" value="10" />
+			</map>
+		</property>
+	</bean>
+	
+	
+	<!-- cron触发器 -->
+	<!-- CronTriggerBean是对CronTrigger的简单包装， 把一些字段：通过构造函数 注入 变成通过属性注入  -->
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="cronExpression" value="10 0/1 * * * ?" />
+	</bean>
+	
+	
+	<!-- Scheduler调度 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
+		</property>
+		<property name="jobDetails">
+			<list>
+				<ref bean="jobDetail" />
+			</list>
+		</property>
+		<property name="startupDelay" value="30"/><!-- bean实例化好后，等待30s才启动start()-->
+		<!--  
+		<property name="configLocation" value="classpath:xx/quartz.properties" /> 
+		-->
+    </bean> 
+
+
+</beans>
