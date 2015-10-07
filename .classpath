@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="j2ee/quartz/demo/TestServlet.java" kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/quartz-lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/quartz-lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="lib/quartz-lib/commons-digester-1.7.jar"/>
+	<classpathentry kind="lib" path="lib/quartz-lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/quartz-lib/commons-logging-api.jar"/>
+	<classpathentry kind="lib" path="E:/OpenSource/spring-framework-2.5.6.SEC01/dist/spring.jar"/>
+	<classpathentry kind="lib" path="E:/OpenSource/commons-dbcp-1.2.2/commons-pool.jar"/>
+	<classpathentry kind="lib" path="E:/OpenSource/commons-dbcp-1.2.2/commons-dbcp-1.2.2.jar"/>
+	<classpathentry kind="lib" path="E:/OpenSource/jdbc-driver/mysql-connector-java-5.1.7/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="lib/quartz-lib/quartz-all-1.6.5.jar" sourcepath="E:/OpenSource/quartz-1.6.5"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
